@@ -1,0 +1,6 @@
+{
+  "name": "BellaDerma Clinic",
+  "description": "Premium dermatology and aesthetic clinic website.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Appointment": {
+      "title": "Appointment",
+      "description": "A booking request for a treatment.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "preferredDate": { "type": "string", "maxLength": 50 },
+        "preferredTime": { "type": "string", "maxLength": 50 },
+        "treatment": { "type": "string", "maxLength": 200 },
+        "message": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone", "preferredDate", "preferredTime", "treatment", "status", "createdAt"]
+    },
+    "ContactEnquiry": {
+      "title": "Contact Enquiry",
+      "description": "General contact form submission.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["new", "read", "replied"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "phone", "message", "status", "createdAt"]
+    },
+    "TreatmentEnquiry": {
+      "title": "Treatment Enquiry",
+      "description": "Enquiry specific to a treatment.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "treatmentId": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["new", "read", "replied"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone", "treatmentId", "message", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "appointments/{appointmentId}": {
+      "schema": { "$ref": "#/entities/Appointment" },
+      "description": "Stores patient appointments."
+    },
+    "contactEnquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/ContactEnquiry" },
+      "description": "Stores contact form submissions."
+    },
+    "treatmentEnquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/TreatmentEnquiry" },
+      "description": "Stores treatment-specific enquiries."
+    }
+  }
+}
