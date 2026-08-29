@@ -29,11 +29,14 @@ export const metadata: Metadata = {
   },
 };
 
+import FloatingActions from '@/components/FloatingActions';
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable} scroll-smooth overflow-x-hidden`}>
       <body className="font-sans bg-stone-50 text-stone-900 antialiased selection:bg-stone-200 overflow-x-hidden" suppressHydrationWarning>
         {children}
+        <FloatingActions />
       </body>
     </html>
   );

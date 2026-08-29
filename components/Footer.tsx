@@ -42,7 +42,7 @@ export default function Footer() {
               <Link href="/#reviews" className="text-sm font-light text-stone-500 hover:text-stone-900 transition-colors">Reviews</Link>
             </div>
             <div className="flex flex-col gap-4">
-              <Link href="/#contact" className="text-sm font-light text-stone-500 hover:text-stone-900 transition-colors">Contact</Link>
+              <Link href="/contact" className="text-sm font-light text-stone-500 hover:text-stone-900 transition-colors">Contact</Link>
               <Link href="/book" className="text-sm font-light text-stone-500 hover:text-stone-900 transition-colors">Book Appointment</Link>
             </div>
           </div>

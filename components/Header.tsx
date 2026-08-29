@@ -33,7 +33,7 @@ export default function Header() {
             <Link href="/treatments" className="hover:text-stone-900 transition-colors">Treatments</Link>
             <Link href="/#about" className="hover:text-stone-900 transition-colors">About</Link>
             <Link href="/#reviews" className="hover:text-stone-900 transition-colors">Reviews</Link>
-            <Link href="/#contact" className="hover:text-stone-900 transition-colors">Contact</Link>
+            <Link href="/contact" className="hover:text-stone-900 transition-colors">Contact</Link>
           </nav>
 
           <div className="hidden md:block">
@@ -70,7 +70,7 @@ export default function Header() {
               <Link href="/treatments" onClick={() => setIsMenuOpen(false)} className="hover:text-stone-300 transition-colors">Treatments</Link>
               <Link href="/#about" onClick={() => setIsMenuOpen(false)} className="hover:text-stone-300 transition-colors">About</Link>
               <Link href="/#reviews" onClick={() => setIsMenuOpen(false)} className="hover:text-stone-300 transition-colors">Reviews</Link>
-              <Link href="/#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-stone-300 transition-colors">Contact</Link>
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-stone-300 transition-colors">Contact</Link>
             </nav>
             <div className="flex flex-col gap-6 border-t border-stone-800 pt-8 mt-12">
               <Link href="/book" onClick={() => setIsMenuOpen(false)} className="bg-stone-50 text-center text-stone-900 text-sm uppercase tracking-widest px-8 py-4 rounded-full hover:bg-stone-200 transition-colors w-full font-medium">

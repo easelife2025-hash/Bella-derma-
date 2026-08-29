@@ -40,19 +40,21 @@ export default function AppointmentsDashboard() {
       setAppointments(data);
       setLoading(false);
       
-      // Update selected appt if it was changed remotely
-      if (selectedAppt) {
-        const updated = data.find(a => a.id === selectedAppt.id);
-        if (updated) setSelectedAppt(updated);
-        else setSelectedAppt(null); // Deleted
-      }
+      // We use a functional state update to safely access the current selectedAppt without adding it to the dependency array
+      setSelectedAppt((currentSelected) => {
+        if (currentSelected) {
+          const updated = data.find(a => a.id === currentSelected.id);
+          return updated ? updated : null;
+        }
+        return currentSelected;
+      });
     }, (error) => {
       console.error("Error fetching appointments:", error);
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [selectedAppt?.id]);
+  }, []);
 
   const updateStatus = async (id: string, newStatus: string) => {
     try {

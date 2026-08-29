@@ -36,19 +36,21 @@ export default function EnquiriesDashboard() {
       setEnquiries(data);
       setLoading(false);
       
-      // Update selected enquiry if it was changed remotely
-      if (selectedEnq) {
-        const updated = data.find(e => e.id === selectedEnq.id);
-        if (updated) setSelectedEnq(updated);
-        else setSelectedEnq(null); // Deleted
-      }
+      // We use a functional state update to safely access the current selectedEnq without adding it to the dependency array
+      setSelectedEnq((currentSelected) => {
+        if (currentSelected) {
+          const updated = data.find(e => e.id === currentSelected.id);
+          return updated ? updated : null;
+        }
+        return currentSelected;
+      });
     }, (error) => {
       console.error("Error fetching enquiries:", error);
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [selectedEnq?.id]);
+  }, []);
 
   const updateStatus = async (id: string, newStatus: string) => {
     try {
