@@ -1,9 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ChevronRight, Star, MapPin, Phone, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ChevronRight, Star, MapPin, Phone, ShieldCheck, Play, Sparkles, User } from 'lucide-react';
 
 import heroImg from '@/src/assets/images/hero_aesthetic_clinic_1787904893489.jpg';
 import injectablesImg from '@/src/assets/images/injectables_treatment_1787904909927.jpg';
@@ -28,6 +29,8 @@ const STAGGER: any = {
 };
 
 export default function Page() {
+  const [mediaTab, setMediaTab] = useState<'video' | 'portrait'>('video');
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -52,9 +55,12 @@ export default function Page() {
               <span className="text-stone-500 italic block mt-2">Thoughtfully Personalized.</span>
             </motion.h1>
 
-            <motion.div variants={FADE_UP} className="flex items-center gap-2 text-stone-600 text-sm md:text-base font-medium mb-8">
-              <ShieldCheck className="w-4 h-4 text-stone-800" />
-              <span>Dermatologically proven</span>
+            <motion.div 
+              variants={FADE_UP} 
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-50/90 border border-amber-300 text-amber-900 shadow-sm shadow-amber-500/10 mb-8 w-max"
+            >
+              <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+              <span className="font-semibold text-xs md:text-sm tracking-wide text-amber-900">Dermatologically proven</span>
             </motion.div>
 
             <motion.div variants={FADE_UP} className="flex items-center gap-5 mb-12 bg-white/60 w-max px-6 py-3.5 rounded-full border border-stone-200/80 backdrop-blur-md shadow-sm">
@@ -201,23 +207,85 @@ export default function Page() {
             
             {/* Image Side */}
             <div className="w-full lg:w-5/12 relative">
+              {/* Media Switcher Controls */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="inline-flex p-1 bg-white/90 rounded-full border border-stone-200 backdrop-blur-md shadow-xs">
+                  <button 
+                    type="button"
+                    onClick={() => setMediaTab('video')}
+                    className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                      mediaTab === 'video' 
+                        ? 'bg-stone-900 text-amber-300 shadow-sm' 
+                        : 'text-stone-600 hover:text-stone-900'
+                    }`}
+                  >
+                    <Play className="w-3 h-3 fill-current" />
+                    Clinical GIF Video
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={() => setMediaTab('portrait')}
+                    className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                      mediaTab === 'portrait' 
+                        ? 'bg-stone-900 text-stone-100 shadow-sm' 
+                        : 'text-stone-600 hover:text-stone-900'
+                    }`}
+                  >
+                    <User className="w-3 h-3" />
+                    Dr. Chitra
+                  </button>
+                </div>
+                <span className="text-[11px] text-amber-800 font-semibold tracking-wide uppercase">In-Clinic</span>
+              </div>
+
               <motion.div 
-                className="aspect-[3/4] relative rounded-2xl overflow-hidden shadow-2xl shadow-stone-900/10"
+                className="aspect-[3/4] relative rounded-2xl overflow-hidden shadow-2xl shadow-stone-900/15 border border-stone-200 bg-stone-900"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
-                 <Image 
-                  src={doctorImg} 
-                  alt="Dr. Chitra - BellaDerma Clinic" 
-                  fill 
-                  className="object-cover"
-                  placeholder="blur"
-                />
+                {mediaTab === 'video' ? (
+                  <>
+                    {/* Dermatologist Doctor Procedure GIF / Video */}
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      className="w-full h-full object-cover"
+                      poster="https://media.tenor.com/JSGYZmeOUR8AAAAM/beauty-treatment-dr-azadeh-shirazi.gif"
+                    >
+                      <source src="https://media.tenor.com/JSGYZmeOUR8AAAPo/beauty-treatment-dr-azadeh-shirazi.mp4" type="video/mp4" />
+                    </video>
+
+                    {/* Subtle gradient vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/20 pointer-events-none" />
+
+                    {/* Live aesthetic procedure badge */}
+                    <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between p-3.5 rounded-xl bg-stone-950/75 backdrop-blur-md border border-stone-700/60 text-stone-100 z-10">
+                      <div className="flex items-center gap-2.5">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span className="text-xs font-medium tracking-wide uppercase text-stone-200">Clinical Care in Action</span>
+                      </div>
+                      <span className="text-[10px] uppercase tracking-wider text-amber-300 font-semibold">BellaDerma</span>
+                    </div>
+                  </>
+                ) : (
+                  <Image 
+                    src={doctorImg} 
+                    alt="Dr. Chitra - BellaDerma Clinic" 
+                    fill 
+                    className="object-cover"
+                    placeholder="blur"
+                  />
+                )}
               </motion.div>
               {/* Decorative accent */}
-              <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-stone-200 rounded-full mix-blend-multiply blur-3xl opacity-50 pointer-events-none" />
+              <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-amber-100/60 rounded-full mix-blend-multiply blur-3xl opacity-50 pointer-events-none" />
             </div>
 
             {/* Content Side */}
