@@ -185,7 +185,7 @@ export default function EnquiriesDashboard() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-2">Submitted On</p>
                 <p className="text-sm text-stone-600">
-                  {format(new Date(selectedEnq.createdAt), 'MMM d, yyyy h:mm a')}
+                  {selectedEnq.createdAt ? format((selectedEnq.createdAt as any).toDate ? (selectedEnq.createdAt as any).toDate() : new Date(selectedEnq.createdAt), 'MMM d, yyyy h:mm a') : ''}
                 </p>
               </div>
             </div>

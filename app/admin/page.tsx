@@ -203,7 +203,7 @@ export default function AppointmentsDashboard() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-2">Submitted On</p>
                 <p className="text-sm text-stone-600">
-                  {format(new Date(selectedAppt.createdAt), 'MMM d, yyyy h:mm a')}
+                  {selectedAppt.createdAt ? format((selectedAppt.createdAt as any).toDate ? (selectedAppt.createdAt as any).toDate() : new Date(selectedAppt.createdAt), 'MMM d, yyyy h:mm a') : ''}
                 </p>
               </div>
             </div>
