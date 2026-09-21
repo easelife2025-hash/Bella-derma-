@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ChevronRight, Star, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, ChevronRight, Star, MapPin, Phone, ShieldCheck } from 'lucide-react';
 
 import heroImg from '@/src/assets/images/hero_aesthetic_clinic_1787904893489.jpg';
 import injectablesImg from '@/src/assets/images/injectables_treatment_1787904909927.jpg';
@@ -47,10 +47,15 @@ export default function Page() {
               <span className="text-stone-500 text-[10px] md:text-xs tracking-[0.2em] uppercase">Nerul, Navi Mumbai</span>
             </motion.div>
             
-            <motion.h1 variants={FADE_UP} className="font-serif text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] tracking-tight mb-10 text-stone-900">
+            <motion.h1 variants={FADE_UP} className="font-serif text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] tracking-tight mb-4 text-stone-900">
               Skin & Aesthetic Care,<br/>
               <span className="text-stone-500 italic block mt-2">Thoughtfully Personalized.</span>
             </motion.h1>
+
+            <motion.div variants={FADE_UP} className="flex items-center gap-2 text-stone-600 text-sm md:text-base font-medium mb-8">
+              <ShieldCheck className="w-4 h-4 text-stone-800" />
+              <span>Dermatologically proven</span>
+            </motion.div>
 
             <motion.div variants={FADE_UP} className="flex items-center gap-5 mb-12 bg-white/60 w-max px-6 py-3.5 rounded-full border border-stone-200/80 backdrop-blur-md shadow-sm">
               <div className="flex gap-1 text-stone-800">
