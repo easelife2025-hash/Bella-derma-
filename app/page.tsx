@@ -114,6 +114,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-24 gap-8">
             <div className="max-w-2xl">
+              <p className="text-xs uppercase tracking-[0.2em] text-stone-500 font-medium mb-3">Best clinic in Nerul</p>
               <h2 className="font-serif text-5xl md:text-6xl mb-6 tracking-tight text-stone-900">Care for Every Skin Journey</h2>
             </div>
             <Link href="/treatments" className="group flex items-center gap-2 text-xs uppercase tracking-[0.15em] border-b border-stone-900 pb-1 hover:text-stone-500 hover:border-stone-500 transition-all shrink-0 font-medium">
