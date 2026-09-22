@@ -192,6 +192,24 @@ export default function Page() {
               </motion.div>
             ))}
           </div>
+
+          {/* Banner linking to Before & After Showcase */}
+          <div className="mt-12 p-8 md:p-10 rounded-3xl bg-stone-900 text-stone-50 flex flex-col md:flex-row items-center justify-between gap-6 border border-stone-800 shadow-xl">
+            <div>
+              <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-stone-400 font-medium block mb-2">Clinical Results</span>
+              <h3 className="font-serif text-2xl md:text-3xl tracking-tight text-white mb-2">Interactive Before & After Case Studies</h3>
+              <p className="text-stone-300 text-sm font-light max-w-xl">
+                Slide across verified clinical transformations for acne scar revision, laser pigmentation clearance, and facial contouring.
+              </p>
+            </div>
+            <Link 
+              href="/treatments"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-stone-900 text-xs uppercase tracking-[0.15em] font-medium hover:bg-stone-100 transition-colors shadow-sm"
+            >
+              <span>Explore Results Slider</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
 

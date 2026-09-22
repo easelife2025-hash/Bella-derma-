@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Plus, Minus, ArrowRight } from 'lucide-react';
+import { Search, Plus, Minus, ArrowRight, Sparkles, SlidersHorizontal, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { BeforeAfterSlider, TreatmentResultsShowcase } from '@/components/BeforeAfterSlider';
+import { CLINICAL_CASES } from '@/lib/treatmentResultsData';
 
 // Use one of the existing images for the treatments header
 import skincareImg from '@/src/assets/images/clinical_skincare_1787904939862.jpg';
@@ -25,48 +27,56 @@ const TREATMENTS = [
     category: "Skin & Aesthetic",
     name: "Anti-Wrinkle Injections",
     description: "Targeted neuromodulator treatments to relax facial muscles, softening dynamic lines and preventing new wrinkles from forming.",
+    caseId: "dermal-fillers-sculpt"
   },
   {
     id: 2,
     category: "Skin & Aesthetic",
     name: "Dermal Fillers",
     description: "Hyaluronic acid-based treatments to restore volume, enhance facial contours, and provide deep hydration.",
+    caseId: "dermal-fillers-sculpt"
   },
   {
     id: 3,
     category: "Skin & Aesthetic",
     name: "Clinical Peels",
     description: "Medical-grade chemical exfoliation customized to your skin type to improve texture, tone, and overall radiance.",
+    caseId: "clinical-peels-glow"
   },
   {
     id: 4,
     category: "Laser & Resurfacing",
     name: "Fractional CO2 Laser",
     description: "Advanced ablative laser therapy for profound skin resurfacing, targeting deep wrinkles, and severe textural irregularities.",
+    caseId: "acne-scar-co2"
   },
   {
     id: 5,
     category: "Laser & Resurfacing",
     name: "Pico Laser Treatment",
     description: "Ultra-short pulse laser technology for highly effective pigmentation removal, skin revitalization, and tattoo removal with minimal downtime.",
+    caseId: "pico-laser-pigmentation"
   },
   {
     id: 6,
     category: "Laser & Resurfacing",
     name: "IPL Photorejuvenation",
     description: "Intense Pulsed Light therapy to treat vascular lesions, sun damage, and hyperpigmentation for a more even complexion.",
+    caseId: "pico-laser-pigmentation"
   },
   {
     id: 7,
     category: "Acne & Scars",
     name: "Microneedling with PRP",
     description: "Collagen induction therapy combined with Platelet-Rich Plasma to accelerate healing and significantly improve acne scar appearance.",
+    caseId: "acne-scar-co2"
   },
   {
     id: 8,
     category: "Acne & Scars",
     name: "Acne Subcision",
     description: "A minor surgical procedure used to treat deep, rolling acne scars by releasing the fibrotic strands that tether the scar to underlying tissue.",
+    caseId: "acne-scar-co2"
   },
   {
     id: 9,
@@ -86,6 +96,14 @@ export default function TreatmentsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [showInlineComparison, setShowInlineComparison] = useState<{ [key: number]: boolean }>({});
+
+  const toggleInlineComparison = (treatmentId: number) => {
+    setShowInlineComparison(prev => ({
+      ...prev,
+      [treatmentId]: !prev[treatmentId]
+    }));
+  };
 
   const filteredTreatments = TREATMENTS.filter(t => {
     const matchesCategory = activeCategory === "All" || t.category === activeCategory;
@@ -123,6 +141,28 @@ export default function TreatmentsPage() {
             placeholder="blur"
           />
         </div>
+      </section>
+
+      {/* Interactive Clinical Results: Before & After Comparison Showcase */}
+      <section className="pb-20 md:pb-28 px-6 md:px-12 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-stone-700" />
+              <span className="text-stone-500 tracking-[0.2em] uppercase text-xs font-medium">
+                Clinical Evidence
+              </span>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl text-stone-900 tracking-tight">
+              Before & After Results
+            </h2>
+          </div>
+          <p className="text-stone-500 font-light text-sm md:text-base max-w-md">
+            Slide horizontally to inspect dermatological results, textural elevation, and pigment clearance under standardized clinical lighting.
+          </p>
+        </div>
+
+        <TreatmentResultsShowcase cases={CLINICAL_CASES} />
       </section>
 
       {/* Main Content */}
@@ -226,9 +266,70 @@ export default function TreatmentsPage() {
                             className="overflow-hidden"
                           >
                             <div className="pb-10 md:pl-[13rem] pr-6 md:pr-12">
-                              <p className="text-stone-500 font-light leading-relaxed max-w-2xl text-base md:text-lg mb-8">
+                              <p className="text-stone-500 font-light leading-relaxed max-w-2xl text-base md:text-lg mb-6">
                                 {treatment.description}
                               </p>
+
+                              {/* Interactive Comparison Preview if Case Study Exists */}
+                              {treatment.caseId && (() => {
+                                const matchedCase = CLINICAL_CASES.find(c => c.id === treatment.caseId);
+                                if (!matchedCase) return null;
+                                const isOpen = showInlineComparison[treatment.id];
+
+                                return (
+                                  <div className="mb-8 max-w-3xl">
+                                    <button
+                                      type="button"
+                                      onClick={() => toggleInlineComparison(treatment.id)}
+                                      className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] font-medium px-4 py-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 transition-colors mb-4 border border-stone-200"
+                                    >
+                                      <SlidersHorizontal className="w-3.5 h-3.5" />
+                                      <span>{isOpen ? 'Hide Case Comparison' : 'Inspect Before & After Comparison'}</span>
+                                    </button>
+
+                                    <AnimatePresence>
+                                      {isOpen && (
+                                        <motion.div
+                                          initial={{ opacity: 0, y: 12 }}
+                                          animate={{ opacity: 1, y: 0 }}
+                                          exit={{ opacity: 0, y: -12 }}
+                                          transition={{ duration: 0.3 }}
+                                          className="p-5 md:p-6 rounded-3xl bg-white border border-stone-200 shadow-sm"
+                                        >
+                                          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                            <div className="flex items-center gap-2">
+                                              <span className="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-md bg-stone-100 text-stone-700">
+                                                {matchedCase.sessions}
+                                              </span>
+                                              <span className="text-xs text-stone-400">
+                                                {matchedCase.timeline}
+                                              </span>
+                                            </div>
+                                            <span className="text-xs text-stone-500 italic font-serif">
+                                              Standardized clinical photography
+                                            </span>
+                                          </div>
+
+                                          <BeforeAfterSlider
+                                            beforeImage={matchedCase.beforeImage}
+                                            afterImage={matchedCase.afterImage}
+                                            beforeLabel="Before"
+                                            afterLabel="After"
+                                            aspectRatio="aspect-[4/3] md:aspect-[16/10]"
+                                          />
+
+                                          <div className="mt-4 pt-4 border-t border-stone-100">
+                                            <p className="text-xs text-stone-600 leading-relaxed">
+                                              <strong className="font-medium text-stone-900">Dr. Chitra&apos;s Clinical Assessment:</strong> {matchedCase.doctorNote}
+                                            </p>
+                                          </div>
+                                        </motion.div>
+                                      )}
+                                    </AnimatePresence>
+                                  </div>
+                                );
+                              })()}
+
                               <Link href="/book" className="group flex items-center gap-3 text-xs uppercase tracking-[0.15em] font-medium text-stone-900 hover:text-stone-500 transition-colors inline-flex">
                                 Book Appointment <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                               </Link>
