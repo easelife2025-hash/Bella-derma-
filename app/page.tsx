@@ -16,6 +16,7 @@ import hairRemovalImg from '@/src/assets/images/laser_hair_removal_1787906518312
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
+import DoctorVideoCard from '@/components/DoctorVideoCard';
 
 const FADE_UP: any = {
   hidden: { opacity: 0, y: 30 },
@@ -218,7 +219,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
             
-            {/* Image Side */}
+            {/* Video / Doctor Media Side */}
             <div className="w-full lg:w-5/12 relative">
               <motion.div 
                 className="aspect-[3/4] relative rounded-2xl overflow-hidden shadow-2xl shadow-stone-900/10"
@@ -227,12 +228,12 @@ export default function Page() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
-                 <Image 
-                  src={doctorImg} 
-                  alt="Dr. Chitra - BellaDerma Clinic" 
-                  fill 
-                  className="object-cover"
-                  placeholder="blur"
+                <DoctorVideoCard
+                  videoSrc="https://videotourl.com/videos/1790253495515-c12792bd-4748-4fbe-b090-76fb146c6b47.mp4"
+                  posterImage={doctorImg}
+                  doctorName="Dr. Chitra"
+                  doctorSpecialty="Consultant Dermatologist & Aesthetic Specialist"
+                  badgeText="Doctor's Advice"
                 />
               </motion.div>
               {/* Decorative accent */}
